@@ -35,39 +35,7 @@ $bg: #FFF8ED;
     }
 }
 
-.mainMobileMenu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    padding: 30px;
 
-    .head-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .menu {
-        flex-direction: column;
-        margin: auto 0;
-        height: 100%;
-        max-height: 600px;
-        padding: 50px 0;
-        align-items: center;
-        justify-content: space-between;
-
-
-        .menu-item {
-            margin-right: 0;
-            font-size: 18px;
-        }
-    }
-}
 
 .demarcation {
     max-width: 1200px;
@@ -84,44 +52,15 @@ $bg: #FFF8ED;
     background-color: #ECFFFE;
     min-height: 100vh;
 
-    .mainMobileMenu {
-        background-color: #ECFFFE;
-    }
+
 }
 
 .about-bg {
     background-color: $greenColor;
 
-    .mainMobileMenu {
-        background-color: $greenColor;
-    }
 
-    .bodyContent {
-        display: block;
-        margin-top: 50px;
 
-        .title {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            color: rgba(white, 63%);
-            @include stroke-left;
-        }
 
-        .context {
-            padding: 20px 30px;
-            background-color: rgba(black, 25%);
-            margin-top: 20px;
-
-            p {
-                color: white;
-                padding-bottom: 10px;
-                line-height: 25px;
-                font-size: 17px;
-                font-weight: 400;
-            }
-        }
-    }
 
     @media screen and (max-width:768px) {
         .bodyContent .title {
@@ -134,9 +73,7 @@ $bg: #FFF8ED;
     background-color: $bg;
     padding-bottom: 25px;
 
-    .mainMobileMenu {
-        background-color: $bg;
-    }
+
 }
 
 .project-bg {
@@ -144,9 +81,7 @@ $bg: #FFF8ED;
     overflow-y: auto;
     padding-bottom: 50px;
 
-    .mainMobileMenu {
-        background-color: #f6f6f6;
-    }
+
 
     .bodyContent {
         .title {
@@ -158,17 +93,9 @@ $bg: #FFF8ED;
 .blog-bg {
     background-color: #fef5f8;
 
-    .mainMobileMenu {
-        background-color: #fef5f8;
-    }
+
 }
 
-.expTitle {
-    text-align: center;
-    margin-top: 50px;
-    font-weight: 500;
-    color: rgba(black, 70%);
-}
 
 .bgSpline {
     position: fixed;
@@ -180,35 +107,6 @@ $bg: #FFF8ED;
     &.aboutSpline {
         path {
             stroke: rgba(white, 0.04);
-        }
-    }
-}
-
-.menu-item {
-    margin-right: 40px;
-    font-size: 14px;
-    font-weight: 500;
-
-    a {
-        text-decoration: none;
-        color: #424242;
-    }
-
-    &.active {
-        a {
-            color: black;
-        }
-
-        position: relative;
-
-        &::before {
-            content: "";
-            position: absolute;
-            width: 1px;
-            height: 30px;
-            background-color: black;
-            left: 50%;
-            transform: translateY(30px);
         }
     }
 }

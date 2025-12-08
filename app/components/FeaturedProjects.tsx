@@ -16,10 +16,10 @@ export const FeaturedProjects = ({ projects }: FeaturedProjectsProps) => {
         <section className="py-16 md:py-20 pb-20">
             <div className="flex items-center justify-between mb-10">
                 <div>
-                    <h2 className="text-3xl md:text-4xl font-poiret font-bold text-gray-900 dark:text-white mb-2">
+                    <h2 className="text-4xl md:text-5xl font-poiret font-bold text-gray-900 dark:text-white mb-2">
                         Featured Work
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    <p className="text-gray-600 dark:text-gray-400 text-base">
                         Recent projects
                     </p>
                 </div>

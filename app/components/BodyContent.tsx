@@ -82,12 +82,12 @@ const BodyContent = ({ homeData, socialLinks }: ContentType) => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-poiret font-bold !text-gray-900 dark:!text-white leading-tight">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-poiret font-bold !text-gray-900 dark:!text-white leading-tight">
             {homeData?.welcomeNote}
           </h1>
 
           {/* Description */}
-          <p className="max-w-2xl text-lg leading-relaxed text-gray-600 md:text-xl dark:text-gray-300">
+          <p className="max-w-2xl text-xl leading-relaxed text-gray-600 md:text-2xl dark:text-gray-300">
             {homeData?.welcomeDescription}
           </p>
 

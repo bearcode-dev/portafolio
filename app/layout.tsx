@@ -1,16 +1,15 @@
 import { cookies, headers } from 'next/headers';
 import { LanguageProvider } from "./providers/LanguageProvider";
 import { ClientLayout } from "./providers/ClientLayout";
+import TanstackProvider from "./providers/tanstack.provider";
 import { Locale } from "./lib/dictionary";
 import MainLayout from "./components/MainLayout";
 
 // ... existing imports ...
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import './../styles/main.scss'
-import TanstackProvider from "./providers/tanstack.provider";
+import { Poiret_One, Open_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const poiret = Poiret_One({ subsets: ["latin"], weight: "400", variable: "--font-poiret" });
+const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans" });
 
 export const metadata: Metadata = {
   title: "Portafolio Ronal Cardenas",
@@ -38,7 +37,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang={initialLang}>
+    <html lang={initialLang} className={`${poiret.variable} ${openSans.variable}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -61,7 +60,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={openSans.className}>
         <TanstackProvider>
           <LanguageProvider initialLang={initialLang}>
             <ClientLayout>

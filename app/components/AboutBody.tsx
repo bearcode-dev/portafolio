@@ -29,9 +29,9 @@ const AboutBody = ({ paragraphs }: ContentType) => {
     };
 
     const quickFacts = [
-        { icon: MapPin, label: 'Location', value: 'Remote / Colombia' },
-        { icon: Briefcase, label: 'Experience', value: '5+ Years' },
-        { icon: Code2, label: 'Projects', value: '50+ Completed' },
+        { icon: MapPin, label: 'Location', value: 'Remote / Peru' },
+        { icon: Briefcase, label: 'Experience', value: '4+ Years' },
+        { icon: Code2, label: 'Projects', value: '20+ Completed' },
         { icon: Calendar, label: 'Availability', value: 'Open to work' }
     ];
 
@@ -43,26 +43,26 @@ const AboutBody = ({ paragraphs }: ContentType) => {
             className="space-y-16"
         >
             {/* Hero Section */}
-            <motion.div variants={fadeInUp} className="text-center space-y-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-poiret font-bold text-gray-900 dark:text-white">
+            <motion.div variants={fadeInUp} className="space-y-4 text-center">
+                <h1 className="text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl font-poiret dark:text-white">
                     About Me
                 </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
                     Full-stack developer passionate about creating elegant solutions to complex problems
                 </p>
             </motion.div>
 
             {/* Quick Facts */}
             <motion.div variants={fadeInUp}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                     {quickFacts.map((fact, index) => (
                         <motion.div
                             key={index}
                             variants={fadeInUp}
-                            className="bg-white/70 dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-white/10 text-center hover:border-brand-green/50 dark:hover:border-brand-green/30 transition-all shadow-lg"
+                            className="p-6 text-center rounded-2xl border shadow-lg backdrop-blur-xl transition-all bg-white/70 dark:bg-white/5 border-gray-200/50 dark:border-white/10 hover:border-brand-green/50 dark:hover:border-brand-green/30"
                         >
-                            <fact.icon className="w-6 h-6 mx-auto mb-3 text-brand-green" />
-                            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+                            <fact.icon className="mx-auto mb-3 w-6 h-6 text-brand-green" />
+                            <p className="mb-1 text-xs tracking-wider text-gray-500 uppercase dark:text-gray-400">
                                 {fact.label}
                             </p>
                             <p className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -74,18 +74,18 @@ const AboutBody = ({ paragraphs }: ContentType) => {
             </motion.div>
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 
                 {/* Left Column: Story */}
-                <motion.div variants={fadeInUp} className="lg:col-span-2 space-y-6">
+                <motion.div variants={fadeInUp} className="space-y-6 lg:col-span-2">
                     {paragraphs.map((item, index) => (
                         <motion.div 
                             key={index}
                             variants={fadeInUp}
-                            className="group relative bg-white/70 dark:bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-gray-200/50 dark:border-white/10 hover:border-brand-green/50 dark:hover:border-brand-green/30 transition-all shadow-lg hover:shadow-xl"
+                            className="relative p-8 rounded-3xl border shadow-lg backdrop-blur-xl transition-all group bg-white/70 dark:bg-white/5 border-gray-200/50 dark:border-white/10 hover:border-brand-green/50 dark:hover:border-brand-green/30 hover:shadow-xl"
                         >
-                            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-green to-brand-medium rounded-l-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b rounded-l-3xl opacity-0 transition-opacity from-brand-green to-brand-medium group-hover:opacity-100" />
+                            <p className="text-white text-[17px] leading-relaxed pb-2.5">
                                 {item.paragraph}
                             </p>
                         </motion.div>
@@ -97,7 +97,7 @@ const AboutBody = ({ paragraphs }: ContentType) => {
                     variants={fadeInUp}
                     className="lg:col-span-1"
                 >
-                    <div className="sticky top-24 bg-white/70 dark:bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-white/10 shadow-lg">
+                    <div className="sticky top-24 p-8 rounded-3xl border shadow-lg backdrop-blur-xl bg-white/70 dark:bg-white/5 border-gray-200/50 dark:border-white/10">
                         <Skillbar />
                     </div>
                 </motion.div>
@@ -105,18 +105,18 @@ const AboutBody = ({ paragraphs }: ContentType) => {
 
             {/* CTA Section */}
             <motion.div variants={fadeInUp} className="text-center">
-                <div className="inline-flex flex-col items-center gap-4 bg-gradient-to-br from-brand-green/10 to-brand-medium/10 dark:from-brand-green/5 dark:to-brand-medium/5 p-8 rounded-3xl border border-brand-green/20">
+                <div className="inline-flex flex-col gap-4 items-center p-8 bg-gradient-to-br rounded-3xl border from-brand-green/10 to-brand-medium/10 dark:from-brand-green/5 dark:to-brand-medium/5 border-brand-green/20">
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white font-poiret">
                         Let&apos;s Work Together
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-md">
+                    <p className="max-w-md text-gray-600 dark:text-gray-400">
                         Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
                     </p>
                     <a 
                         href="mailto:cardenascode7@outlook.com"
-                        className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-brand-green to-brand-medium text-white font-semibold py-4 px-10 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                        className="inline-flex gap-3 justify-center items-center px-10 py-4 font-semibold text-white bg-gradient-to-r rounded-2xl shadow-lg transition-all duration-300 group from-brand-green to-brand-medium hover:shadow-xl hover:scale-105"
                     >
-                        <Mail className='w-5 h-5 group-hover:rotate-12 transition-transform duration-300'/>
+                        <Mail className='w-5 h-5 transition-transform duration-300 group-hover:rotate-12'/>
                         <span>{t.about.sendEmail}</span>
                     </a>
                 </div>

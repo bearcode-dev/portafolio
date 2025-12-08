@@ -7,6 +7,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
         const experiences = await db.experience.findMany({
             include: {
                 inputs: true
+            },
+            orderBy: {
+                start: 'desc'
             }
         }
 

@@ -35,17 +35,17 @@ export const BlogCard = ({ blog }: { blog: BlogType }) => {
                 {/* Top Badge */}
                 <div className="flex justify-end">
                     <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full">
-                        <span className="text-white text-xs font-medium">Article</span>
+                        <span className="text-white text-[10px] font-medium">Article</span>
                     </div>
                 </div>
 
                 {/* Bottom Content */}
                 <div className="space-y-4">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white font-poiret leading-tight line-clamp-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white font-poiret leading-tight line-clamp-2">
                         {blog.title}
                     </h3>
                     
-                    <div className="flex items-center gap-4 text-gray-300 text-sm">
+                    <div className="flex items-center gap-4 text-gray-300 text-xs">
                         <div className="flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
                             <span>{new Date(blog.createdAt || Date.now()).toLocaleDateString()}</span>

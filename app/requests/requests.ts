@@ -43,6 +43,7 @@ export const getBlogsV2 = async (): Promise<BlogType[] | []> => {
         const data = await fetchJSON<BlogType[]>(`/api/blogs`);
         return data ?? [];
     } catch (error) {
+        // Log a warning if fetching blogs fails
         console.warn('Error fetching blogs, returning empty array:', error);
         return [];
     }

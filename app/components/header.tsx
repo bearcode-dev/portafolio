@@ -45,11 +45,11 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="fixed top-0 right-0 left-0 z-50 mx-auto mt-6 w-full max-w-4xl px-4"
+                className="fixed top-0 right-0 left-0 z-50 px-4 mx-auto mt-6 w-full max-w-4xl"
             >
                 <div className={`
                     flex items-center gap-2 px-4 py-3 rounded-full transition-all duration-300
-                    ${isDark ? 'bg-white/5 border-gray-700' : 'bg-white/80 border-gray-200'}
+                    ${isDark ? 'border-gray-700 bg-white/5' : 'border-gray-200 bg-white/80'}
                     border shadow-lg shadow-black/5 backdrop-blur-sm
                     ${scrolled ? 'shadow-xl shadow-black/10' : ''}`}>
                     {/* Logo */}
@@ -122,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                                     <Logo compact={false} />
                                     <button
                                         onClick={() => setMenuOpen(false)}
-                                        className="p-2 rounded-lg transition-colors text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                        className="p-2 text-gray-900 rounded-lg transition-colors dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                                     >
                                         <MenuClose />
                                     </button>
@@ -176,9 +176,9 @@ export const MenuItem = ({ name, linkTo, active, isMobile }: { name: string, lin
             <Link 
                 href={linkTo} 
                 className={`
-                    block px-4 py-3 rounded-xl text-base font-medium transition-all
+                    block px-4 py-3 rounded-xl text-base font-semibold transition-all
                     ${isActive 
-                        ? 'text-gray-900 dark:text-white bg-gradient-to-r shadow-md from-brand-green to-brand-medium' 
+                        ? 'text-gray-900 bg-gradient-to-r shadow-md dark:text-white from-brand-green to-brand-medium' 
                         : 'text-gray-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
                     }
                 `}
@@ -190,11 +190,11 @@ export const MenuItem = ({ name, linkTo, active, isMobile }: { name: string, lin
 
     return (
         <Link 
-            href={linkTo} 
-            className={`
-                relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full
+                href={linkTo} 
+                className={`
+                    relative px-4 py-2 mr-10 text-base font-medium transition-all duration-200 rounded-full
                 ${isActive 
-                    ? 'text-gray-900 dark:text-white bg-gradient-to-r shadow-md from-brand-green to-brand-medium' 
+                    ? 'text-gray-900 bg-gradient-to-r shadow-md dark:text-white from-brand-green to-brand-medium' 
                     : 'text-gray-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10'
                 }
             `}

@@ -31,7 +31,10 @@ module.exports = {
           green: "hsl(var(--brand-green))",
           light: "hsl(var(--brand-light))",
           cream: "hsl(var(--brand-cream))",
+          "dark-green": "#024441",
         },
+        lightHomeBg: "#DBEEED",
+        bg: "#FFF8ED",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -80,6 +83,10 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        poiret: ['var(--font-poiret)'],
+        sans: ['var(--font-open-sans)'],
       },
     },
   },

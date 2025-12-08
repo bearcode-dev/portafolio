@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 
 const fetchExperiences = async (): Promise<ExperienceType[] | []> => {
 
-    const data = await fetchJSON<ExperienceType[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/experiences`) as any;
+    const data = await fetchJSON<ExperienceType[]>(`${process.env.API_URL}/api/experiences`) as any;
 
     return data ?? [];
 }
@@ -71,7 +71,7 @@ const Experiences = () => {
                                 ),
                             },
                         ]}
-                        apiEndpoint={`${process.env.NEXT_PUBLIC_API_URL}/api/experiences`}
+                        apiEndpoint={`${process.env.API_URL}/api/experiences`}
                         FormComponent={AddExperience}
                         onDataUpdate={refetch} // Pasa la función para actualizar los datos
                     />
