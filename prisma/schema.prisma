@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model UserDetail {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  welcomeTitle       String
+  welcomeNote        String
+  welcomeDescription String
+  cvFile             String? // URL or path to the CV file
+  userImage          String // URL or path to the user image
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model UserSocialLink {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  link      String
+  icon      String // URL or path to the icon image
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("UserSocialLinks")
+}
+
+model AboutContent {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  paragraph String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Experience {
+  id        String            @id @default(auto()) @map("_id") @db.ObjectId
+  image     String? // URL or path to the image
+  name      String
+  title     String
+  start     DateTime
+  end       DateTime
+  inputs    ExperienceInput[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model ExperienceInput {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  content      String
+  experienceId String     @db.ObjectId
+  experience   Experience @relation(fields: [experienceId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Project {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  about     String
+  toolIDs   String[]      @db.ObjectId
+  tools     ProjectTool[] @relation(fields: [toolIDs], references: [id])
+  cover     String // URL or path to the image
+  link      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model ProjectTool {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String    @unique
+  image       String
+  description String
+  projectIDs  String[]  @db.ObjectId
+  projects    Project[] @relation(fields: [projectIDs], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Blog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @unique
+  cover     String // URL or path to the image
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SkillCategory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  image       String // URL or path to the image
+  skills      Skill[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  category   SkillCategory @relation(fields: [categoryId], references: [id])
+  categoryId String        @db.ObjectId
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
