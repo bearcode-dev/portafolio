@@ -7,7 +7,10 @@
       "Bash(findstr:*)",
       "Bash(npm run dev:*)",
       "Bash(tasklist)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(npx shadcn@latest add card button badge)",
+      "Bash(npx shadcn@latest add card badge table input textarea label separator)",
+      "Bash(npx shadcn@latest add:*)"
     ],
     "deny": [],
     "ask": []
