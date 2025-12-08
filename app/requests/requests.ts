@@ -1,5 +1,5 @@
 import { fetchJSON } from "../../lib/request-util";
-import { AboutType, BlogType, ExperienceType, HomeDataType, ProjectType, SocialLinkType } from "../components/types/types";
+import { AboutType, BlogType, ExperienceType, HomeDataType, ProjectType, ResourceCategoryType, ResourceType, SocialLinkType } from "../components/types/types";
 
 
 
@@ -67,6 +67,34 @@ export const getSocialLinksV2 = async (): Promise<SocialLinkType[] | []> => {
         return data ?? [];
     } catch (error) {
         console.warn('Error fetching social links, returning empty array:', error);
+        return [];
+    }
+}
+
+export const getResourcesV2 = async (categoryId?: string, tags?: string[], type?: string): Promise<ResourceType[] | []> => {
+    try {
+        const params = new URLSearchParams();
+        if (categoryId) params.append('categoryId', categoryId);
+        if (tags && tags.length > 0) params.append('tags', tags.join(','));
+        if (type) params.append('type', type);
+
+        const queryString = params.toString();
+        const url = `/api/resources${queryString ? `?${queryString}` : ''}`;
+
+        const data = await fetchJSON<ResourceType[]>(url);
+        return data ?? [];
+    } catch (error) {
+        console.warn('Error fetching resources, returning empty array:', error);
+        return [];
+    }
+}
+
+export const getResourceCategoriesV2 = async (): Promise<ResourceCategoryType[] | []> => {
+    try {
+        const data = await fetchJSON<ResourceCategoryType[]>(`/api/resource-categories`);
+        return data ?? [];
+    } catch (error) {
+        console.warn('Error fetching resource categories, returning empty array:', error);
         return [];
     }
 }

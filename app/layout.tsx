@@ -4,8 +4,9 @@ import { ClientLayout } from "./providers/ClientLayout";
 import TanstackProvider from "./providers/tanstack.provider";
 import { Locale } from "./lib/dictionary";
 import MainLayout from "./components/MainLayout";
+import type { Metadata } from "next";
+import "./globals.css";
 
-// ... existing imports ...
 import { Poiret_One, Open_Sans } from "next/font/google";
 
 const poiret = Poiret_One({ subsets: ["latin"], weight: "400", variable: "--font-poiret" });

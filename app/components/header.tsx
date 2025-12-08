@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
         { name: t.nav.about, linkTo: "/about" },
         { name: t.nav.experience, linkTo: "/experience" },
         { name: t.nav.projects, linkTo: "/projects" },
-        { name: t.nav.blogs, linkTo: "/blogs" }
+        { name: t.nav.resources, linkTo: "/resources" }
     ]
 
     return (

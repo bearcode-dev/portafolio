@@ -48,3 +48,30 @@ export interface BlogType {
     link: string
     createdAt?: string
 }
+
+export type ResourceCategoryType = {
+    id: string;
+    name: string;
+    slug: string;
+    description?: string;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type ResourceType = {
+    id: string;
+    title: string;
+    slug: string;
+    description: string;
+    content: string;
+    coverImage: string;
+    link?: string;
+    type: 'Article' | 'Video' | 'Ebook' | 'Tutorial' | 'Tool' | 'Case Study';
+    category: ResourceCategoryType;
+    tags: string[];
+    author: string;
+    publishedAt: Date;
+    readTimeMinutes?: number;
+    createdAt: Date;
+    updatedAt: Date;
+};

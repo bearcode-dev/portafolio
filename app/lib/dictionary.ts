@@ -15,6 +15,7 @@ export const dictionary = {
             experience: "Experience",
             projects: "Projects",
             blogs: "Blogs",
+            resources: "Resources",
             about: "About",
             dashboard: "Dashboard",
         },
@@ -37,6 +38,24 @@ export const dictionary = {
         home: {
             welcome: "Welcome",
         },
+        resources: {
+            title: "Learning Resources",
+            description: "Curated collection of valuable resources for developers and designers.",
+            filterByCategory: "Filter by Category",
+            filterByType: "Filter by Type",
+            allCategories: "All Categories",
+            allTypes: "All Types",
+            types: {
+                article: "Article",
+                video: "Video",
+                ebook: "Ebook",
+                tutorial: "Tutorial",
+                tool: "Tool",
+                caseStudy: "Case Study",
+            },
+            viewResource: "View Resource",
+            minRead: "min read",
+        },
     },
     es: {
         common: {
@@ -52,6 +71,7 @@ export const dictionary = {
             experience: "Experiencia",
             projects: "Proyectos",
             blogs: "Blogs",
+            resources: "Recursos",
             about: "Sobre Mí",
             dashboard: "Panel",
         },
@@ -73,6 +93,24 @@ export const dictionary = {
         },
         home: {
             welcome: "Bienvenido",
+        },
+        resources: {
+            title: "Recursos de Aprendizaje",
+            description: "Colección curada de recursos valiosos para desarrolladores y diseñadores.",
+            filterByCategory: "Filtrar por Categoría",
+            filterByType: "Filtrar por Tipo",
+            allCategories: "Todas las Categorías",
+            allTypes: "Todos los Tipos",
+            types: {
+                article: "Artículo",
+                video: "Video",
+                ebook: "Ebook",
+                tutorial: "Tutorial",
+                tool: "Herramienta",
+                caseStudy: "Caso de Estudio",
+            },
+            viewResource: "Ver Recurso",
+            minRead: "min de lectura",
         },
     },
 };
