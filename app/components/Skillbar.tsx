@@ -25,12 +25,12 @@ const SkillBars: React.FC<SkillBarsProps> = ({ skillCategories }) => {
 
     return (
         <div className='w-full space-y-6'>
-            <h2 className='text-xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wider border-b border-gray-300 dark:border-white/20 pb-2'>
+            <h2 className='text-xl font-bold text-foreground mb-6 uppercase tracking-wider border-b border-gray-300 dark:border-white/20 pb-2'>
                 {t.about.skills}
             </h2>
             
             {allSkills.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
+                <p className="text-sm text-muted-foreground text-center py-8">
                     No skills added yet. Add skills from the admin panel.
                 </p>
             ) : (
@@ -44,10 +44,10 @@ const SkillBars: React.FC<SkillBarsProps> = ({ skillCategories }) => {
                         className="space-y-2"
                     >
                         <div className="flex justify-between items-center">
-                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <span className="text-sm font-medium text-foreground">
                                 {skill.name}
                             </span>
-                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                            <span className="text-xs font-semibold text-muted-foreground">
                                 {skill.level}%
                             </span>
                         </div>

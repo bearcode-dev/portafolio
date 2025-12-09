@@ -83,8 +83,8 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                                 className={`
                                     md:hidden p-2 rounded-full transition-colors
                                     ${menuOpen 
-                                        ? 'text-gray-900 dark:text-white hover:bg-white/10' 
-                                        : 'text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                        ? 'text-foreground dark:text-white hover:bg-white/10' 
+                                        : 'text-foreground dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                     }
                                 `}
                                 aria-label="Toggle menu"
@@ -122,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                                     <Logo compact={false} />
                                     <button
                                         onClick={() => setMenuOpen(false)}
-                                        className="p-2 text-gray-900 rounded-lg transition-colors dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                        className="p-2 rounded-lg transition-colors text-foreground dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                                     >
                                         <MenuClose />
                                     </button>
@@ -158,10 +158,10 @@ export default Header
 export const Logo = ({ compact }: { compact?: boolean }) => (
     <Link href="/" className="flex gap-2 items-center">
         <div className="flex justify-center items-center w-9 h-9 bg-gradient-to-br rounded-xl shadow-md from-brand-green to-brand-medium">
-            <span className="text-lg font-bold text-gray-900 dark:text-white">B</span>
+            <span className="text-lg font-bold text-foreground dark:text-white">B</span>
         </div>
         {!compact && (
-            <div className="text-lg font-bold tracking-wide text-gray-900 dark:text-white font-poiret">
+            <div className="text-lg font-bold tracking-wide text-foreground dark:text-white font-poiret">
                 Bear<span className="text-brand-green">Code</span>
             </div>
         )}
@@ -178,8 +178,8 @@ export const MenuItem = ({ name, linkTo, active, isMobile }: { name: string, lin
                 className={`
                     block px-4 py-3 rounded-xl text-base font-semibold transition-all
                     ${isActive 
-                        ? 'text-gray-900 bg-gradient-to-r shadow-md dark:text-white from-brand-green to-brand-medium' 
-                        : 'text-gray-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
+                        ? 'bg-gradient-to-r shadow-md text-foreground dark:text-white from-brand-green to-brand-medium' 
+                        : 'text-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
                     }
                 `}
             >
@@ -194,8 +194,8 @@ export const MenuItem = ({ name, linkTo, active, isMobile }: { name: string, lin
                 className={`
                     relative px-4 py-2 mr-10 text-base font-medium transition-all duration-200 rounded-full
                 ${isActive 
-                    ? 'text-gray-900 bg-gradient-to-r shadow-md dark:text-white from-brand-green to-brand-medium' 
-                    : 'text-gray-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10'
+                    ? 'bg-gradient-to-r shadow-md text-foreground dark:text-white from-brand-green to-brand-medium' 
+                    : 'text-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10'
                 }
             `}
         >

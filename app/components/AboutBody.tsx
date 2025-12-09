@@ -66,7 +66,7 @@ const AboutBody = ({ paragraphs, skillCategories }: ContentType) => {
                             <p className="mb-1 text-xs tracking-wider text-gray-500 uppercase dark:text-gray-400">
                                 {fact.label}
                             </p>
-                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                            <p className="text-sm font-semibold text-foreground">
                                 {fact.value}
                             </p>
                         </motion.div>
@@ -86,7 +86,7 @@ const AboutBody = ({ paragraphs, skillCategories }: ContentType) => {
                             className="relative p-8 rounded-3xl border shadow-lg backdrop-blur-xl transition-all group bg-white/70 dark:bg-white/5 border-gray-200/50 dark:border-white/10 hover:border-brand-green/50 dark:hover:border-brand-green/30 hover:shadow-xl"
                         >
                             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b rounded-l-3xl opacity-0 transition-opacity from-brand-green to-brand-medium group-hover:opacity-100" />
-                            <p className="text-white text-[17px] leading-relaxed pb-2.5">
+                            <p className="text-foreground text-[17px] leading-relaxed pb-2.5">
                                 {item.paragraph}
                             </p>
                         </motion.div>
@@ -110,7 +110,7 @@ const AboutBody = ({ paragraphs, skillCategories }: ContentType) => {
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white font-poiret">
                         Let&apos;s Work Together
                     </h3>
-                    <p className="max-w-md text-gray-600 dark:text-gray-400">
+                    <p className="max-w-md text-muted-foreground">
                         Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
                     </p>
                     <a 
