@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ResourceType } from '../components/types/types';
 
 const AdminDashboard = () => {
   // Fetch all data for statistics
@@ -50,7 +51,7 @@ const AdminDashboard = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ['resource-categories'],
     queryFn: async () => {
-      const res = await fetch('/api/resource-categories');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/resource-categories`);
       if (!res.ok) return [];
       return res.json();
     },
@@ -97,16 +98,16 @@ const AdminDashboard = () => {
   ];
 
   // Calculate resource stats by type
-  const resourcesByType = resources.reduce((acc: Record<string, number>, resource: any) => {
+  const resourcesByType: Record<string, number> = resources.reduce((acc: Record<string, number>, resource: ResourceType) => {
     acc[resource.type] = (acc[resource.type] || 0) + 1;
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
 
   return (
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
           Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
@@ -115,13 +116,13 @@ const AdminDashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.title} className="overflow-hidden hover:shadow-lg transition-shadow">
+            <Card key={stat.title} className="overflow-hidden transition-shadow hover:shadow-lg">
               <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
+                <div className="flex justify-between items-center">
                   <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                     {stat.title}
                   </CardTitle>
@@ -131,7 +132,7 @@ const AdminDashboard = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                <div className="mb-1 text-3xl font-bold text-gray-900 dark:text-white">
                   {stat.value}
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -144,11 +145,11 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Overview */}
-      <div className="grid gap-4 md:gap-6 grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
         {/* Resources by Type */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex gap-2 items-center">
               <TrendingUp className="w-5 h-5 text-brand-green" />
               Resources by Type
             </CardTitle>
@@ -159,12 +160,12 @@ const AdminDashboard = () => {
           <CardContent>
             <div className="space-y-3">
               {Object.entries(resourcesByType).length > 0 ? (
-                Object.entries(resourcesByType).map(([type, count]) => (
-                  <div key={type} className="flex items-center justify-between">
+                Object.entries(resourcesByType).map(([type, count]: [string, number]) => (
+                  <div key={type} className="flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {type}
                     </span>
-                    <Badge variant="secondary">{count}</Badge>
+                    <Badge variant="secondary">{count as React.ReactNode}</Badge>
                   </div>
                 ))
               ) : (
@@ -179,7 +180,7 @@ const AdminDashboard = () => {
         {/* Quick Actions */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex gap-2 items-center">
               <Users className="w-5 h-5 text-brand-green" />
               Quick Actions
             </CardTitle>
@@ -195,7 +196,7 @@ const AdminDashboard = () => {
                   <a
                     key={stat.href}
                     href={stat.href}
-                    className="flex flex-col items-center gap-2 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    className="flex flex-col gap-2 items-center p-4 rounded-lg border border-gray-200 transition-colors dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <Icon className="w-6 h-6 text-brand-green" />
                     <span className="text-xs font-medium text-center text-gray-700 dark:text-gray-300">

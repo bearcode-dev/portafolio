@@ -43,6 +43,7 @@ model Experience {
   id        String            @id @default(auto()) @map("_id") @db.ObjectId
   image     String? // URL or path to the image
   name      String
+  slug      String @unique
   title     String
   start     DateTime
   end       DateTime

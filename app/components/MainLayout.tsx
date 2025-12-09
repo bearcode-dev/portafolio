@@ -20,8 +20,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
   useEffect(() => {
     setActiveRoute(pathname);
     
-    // Don't show header for dashboard routes
-    setShowHeader(!pathname.startsWith('/dashboard'));
+    // Don't show header for dashboard and admin routes
+    setShowHeader(!pathname.startsWith('/admin'));
   }, [pathname]);
 
   // Detect current theme based on document class

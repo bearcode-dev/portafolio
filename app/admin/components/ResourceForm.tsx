@@ -47,7 +47,7 @@ export type ResourceFormRef = {
 };
 
 const fetchResourceCategories = async (): Promise<ResourceCategoryType[] | []> => {
-    const data = await fetchJSON<ResourceCategoryType[]>(`${process.env.API_URL}/api/resource-categories`) as any;
+    const data = await fetchJSON<ResourceCategoryType[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/resource-categories`) as any;
     return data ?? [];
 };
 

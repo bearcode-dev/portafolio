@@ -19,7 +19,7 @@ const CRUDTable: React.FC<CRUDTableProps> = ({ entityName, rowData, columnDefs, 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editData, setEditData] = useState<any | null>(null);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-    const [itemIdToDelete, setItemIdToDelete] = useState<string | null>(null);
+    const [itemSlugToDelete, setItemSlugToDelete] = useState<string | null>(null);
 
     const gridApiRef = useRef<any>(null);
 
@@ -32,16 +32,16 @@ const CRUDTable: React.FC<CRUDTableProps> = ({ entityName, rowData, columnDefs, 
             setEditData(isOpen ? data : null);
             setIsModalOpen(isOpen);
         } else {
-            setItemIdToDelete(isOpen ? (data as string) : null);
+            setItemSlugToDelete(isOpen ? (data as string) : null);
             setDeleteModalOpen(isOpen);
         }
     };
 
     const handleDelete = async () => {
-        if (!itemIdToDelete) return;
+        if (!itemSlugToDelete) return;
 
         try {
-            const response = await fetch(`${apiEndpoint}/${itemIdToDelete}`, {
+            const response = await fetch(`${apiEndpoint}/${itemSlugToDelete}`, {
                 method: 'DELETE',
             });
 
@@ -88,7 +88,7 @@ const CRUDTable: React.FC<CRUDTableProps> = ({ entityName, rowData, columnDefs, 
                 Edit
             </button>
             <button
-                onClick={() => toggleModal('delete', true, params.data.id)}
+                onClick={() => toggleModal('delete', true, params.data.slug)}
                 className="bg-red-500 text-white px-2 py-1 rounded"
             >
                 Delete

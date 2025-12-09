@@ -10,7 +10,7 @@ import ResourceForm from '../../admin/components/ResourceForm';
 
 const fetchResources = async (): Promise<ResourceType[] | []> => {
 
-    const data = await fetchJSON<ResourceType[]>(`${process.env.API_URL}/api/resources`) as any;
+    const data = await fetchJSON<ResourceType[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/resources`) as any;
 
     return data ?? [];
 }
@@ -63,7 +63,7 @@ const ResourcesAdmin = () => {
                                 field: 'category.name',
                             },
                         ]}
-                        apiEndpoint={`${process.env.API_URL}/api/resources`}
+                        apiEndpoint={`${process.env.NEXT_PUBLIC_API_URL}/api/resources`}
                         FormComponent={ResourceForm} // Este componente lo crearemos después
                         onDataUpdate={refetch}
                     />
