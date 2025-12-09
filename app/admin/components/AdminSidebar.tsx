@@ -59,6 +59,12 @@ const menuItems = [
     description: 'Resource categories'
   },
   {
+    href: '/admin/skill-categories',
+    label: 'Skill Categories',
+    icon: FolderTree,
+    description: 'Organize skills'
+  },
+  {
     href: '/admin/skills',
     label: 'Skills',
     icon: Lightbulb,

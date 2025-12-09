@@ -1,8 +1,6 @@
 // components/Modal.tsx
 import React from 'react';
-import { Dialog, DialogContent, DialogTrigger } from '../../../@/components/ui/dialog';
 import { X } from 'lucide-react';
-
 
 interface ModalProps {
     isOpen: boolean;
@@ -10,42 +8,60 @@ interface ModalProps {
     title?: string;
     children: React.ReactNode;
     footer?: React.ReactNode;
+    size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, footer }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, footer, size = 'xl' }) => {
     if (!isOpen) return null;
+
+    const sizeClasses = {
+        sm: 'max-w-md',
+        md: 'max-w-2xl',
+        lg: 'max-w-4xl',
+        xl: 'max-w-6xl',
+    };
+
     const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
     };
+
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
-
-            <DialogContent>
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-                    onClick={handleBackgroundClick} // Close modal when clicking outside
-                >
-                    <div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md max-h-screen overflow-auto">
-                        <button onClick={onClose} className="absolute top-2 right-2 text-xl">
-                            <X />
-                        </button>
-                        {title && <h2 className="text-xl mb-4">{title}</h2>}
-                        <div className="mb-4">
-                            {children}
-                        </div>
-                        {footer && (
-                            <div className="border-t mt-4 pt-4">
-                                {footer}
-                            </div>
-                        )}
-
-                    </div>
-
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+            onClick={handleBackgroundClick}
+        >
+            <div className={`relative w-full ${sizeClasses[size]} mx-4 max-h-[90vh] bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col`}>
+                {/* Header */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    {title && (
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                            {title}
+                        </h2>
+                    )}
+                    <button
+                        onClick={onClose}
+                        className="ml-auto p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Close modal"
+                    >
+                        <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    </button>
                 </div>
-            </DialogContent>
 
-        </Dialog>
+                {/* Content */}
+                <div className="overflow-y-auto flex-1 px-6 py-4">
+                    {children}
+                </div>
+
+                {/* Footer */}
+                {footer && (
+                    <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 rounded-b-xl">
+                        {footer}
+                    </div>
+                )}
+            </div>
+        </div>
     );
 };
 

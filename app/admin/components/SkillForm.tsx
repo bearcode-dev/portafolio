@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../../@/components/ui/input";
@@ -15,6 +15,8 @@ import {
 } from "../../../@/components/ui/form";
 import { z } from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SkillCategoryType } from "../../components/types/types";
+import { fetchJSON } from "../../../lib/request-util";
 
 type SkillFormProps = {
   initialData?: Partial<SkillFormData>;
@@ -24,11 +26,17 @@ type SkillFormProps = {
 const skillFormDataSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, "Name is required"),
-  category: z.string().min(1, "Category is required"),
-  proficiency: z.enum(['Beginner', 'Intermediate', 'Advanced', 'Expert'], { required_error: "Proficiency is required" }),
+  categoryId: z.string().min(1, "Category is required"),
+  proficiency: z.coerce.number().min(0).max(100, "Proficiency must be between 0-100"),
+  order: z.coerce.number().optional(),
 });
 
 export type SkillFormData = z.infer<typeof skillFormDataSchema>;
+
+const fetchSkillCategories = async (): Promise<SkillCategoryType[] | []> => {
+  const data = await fetchJSON<SkillCategoryType[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/skill-categories`);
+  return data ?? [];
+};
 
 export type SkillFormRef = {
     submitForm: () => Promise<void>;
@@ -42,13 +50,23 @@ const SkillForm = forwardRef<
     resolver: zodResolver(skillFormDataSchema),
     defaultValues: {
       name: "",
-      category: "",
-      proficiency: undefined,
+      categoryId: "",
+      proficiency: 50,
+      order: 0,
       id: undefined,
     },
   });
 
   const { handleSubmit, trigger, control, reset, formState: { isValid, isSubmitting, errors }, getValues } = form;
+  const [categories, setCategories] = useState<SkillCategoryType[]>([]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const fetchedCategories = await fetchSkillCategories();
+      setCategories(fetchedCategories);
+    };
+    loadCategories();
+  }, []);
 
   useImperativeHandle(ref, () => ({
     submitForm: handleSubmit(onSubmit),
@@ -83,13 +101,24 @@ const SkillForm = forwardRef<
         />
         <FormField
           control={control}
-          name="category"
+          name="categoryId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g., Frontend, Backend, DevOps" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.icon && `${category.icon} `}{category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -99,20 +128,43 @@ const SkillForm = forwardRef<
           name="proficiency"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Proficiency</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select proficiency level" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Beginner">Beginner</SelectItem>
-                  <SelectItem value="Intermediate">Intermediate</SelectItem>
-                  <SelectItem value="Advanced">Advanced</SelectItem>
-                  <SelectItem value="Expert">Expert</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormLabel>Proficiency (0-100)</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  min="0"
+                  max="100"
+                  placeholder="e.g., 90"
+                  {...field}
+                  value={field.value ?? ""}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    field.onChange(value === "" ? 0 : Number(value));
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
+          name="order"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Display Order (optional)</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="0"
+                  {...field}
+                  value={field.value ?? ""}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    field.onChange(value === "" ? 0 : Number(value));
+                  }}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

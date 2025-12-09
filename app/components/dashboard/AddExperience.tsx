@@ -95,7 +95,7 @@ const AddExperience = forwardRef<
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-4">
         <FormField
           control={control}
           name="name"
@@ -122,28 +122,30 @@ const AddExperience = forwardRef<
             </FormItem>
           )}
         />
-        <FormField
-          control={control}
-          name="start"
-          render={({ field }) => (
-            <CustomDatePicker
-              value={field.value ?? null}
-              onChange={field.onChange}
-              label="Start Date"
-            />
-          )}
-        />
-        <FormField
-          control={control}
-          name="end"
-          render={({ field }) => (
-            <CustomDatePicker
-              value={field.value ?? null}
-              onChange={field.onChange}
-              label="End Date"
-            />
-          )}
-        />
+        <div className="flex space-x-4">
+          <FormField
+            control={control}
+            name="start"
+            render={({ field }) => (
+              <CustomDatePicker
+                value={field.value ?? null}
+                onChange={field.onChange}
+                label="Start Date"
+              />
+            )}
+          />
+          <FormField
+            control={control}
+            name="end"
+            render={({ field }) => (
+              <CustomDatePicker
+                value={field.value ?? null}
+                onChange={field.onChange}
+                label="End Date"
+              />
+            )}
+          />
+        </div>
         <Button
           type="submit"
           className={`bg-blue-500 text-white px-4 py-2 rounded ${

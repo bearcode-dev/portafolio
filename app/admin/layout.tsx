@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import AdminSidebar from './components/AdminSidebar';
 import AdminHeader from './components/AdminHeader';
+import { Toaster } from '@/app/components/ui/toaster';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,6 +30,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           onClick={() => setSidebarOpen(false)}
         />
       )}
+
+      {/* Toast Notifications */}
+      <Toaster />
     </div>
   );
 }

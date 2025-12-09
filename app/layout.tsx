@@ -1,6 +1,7 @@
 import { cookies, headers } from 'next/headers';
 import { LanguageProvider } from "./providers/LanguageProvider";
 import { ClientLayout } from "./providers/ClientLayout";
+import { ThemeProvider } from "./providers/ThemeProvider";
 import TanstackProvider from "./providers/tanstack.provider";
 import { Locale } from "./lib/dictionary";
 import MainLayout from "./components/MainLayout";
@@ -62,15 +63,17 @@ export default function RootLayout({
         />
       </head>
       <body className={openSans.className}>
-        <TanstackProvider>
-          <LanguageProvider initialLang={initialLang}>
-            <ClientLayout>
-              <MainLayout>
-                {children}
-              </MainLayout>
-            </ClientLayout>
-          </LanguageProvider>
-        </TanstackProvider>
+        <ThemeProvider>
+          <TanstackProvider>
+            <LanguageProvider initialLang={initialLang}>
+              <ClientLayout>
+                <MainLayout>
+                  {children}
+                </MainLayout>
+              </ClientLayout>
+            </LanguageProvider>
+          </TanstackProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

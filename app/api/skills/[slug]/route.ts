@@ -5,7 +5,10 @@ import { generateSlug } from "@/lib/slug-util";
 export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
   try {
     const { slug } = params;
-    const skill = await db.skill.findUnique({ where: { slug } });
+    const skill = await db.skill.findUnique({
+      where: { slug },
+      include: { category: true }
+    });
 
     if (!skill) {
       return NextResponse.json({ message: 'Skill not found' }, { status: 404 });
@@ -22,17 +25,23 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
   try {
     const { slug } = params;
     const body = await request.json();
-    const { name, category, proficiency } = body;
+    const { name, categoryId, proficiency, order } = body;
 
-    if (!name || !category || !proficiency) {
-      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+    if (!name || !categoryId || proficiency === undefined) {
+      return NextResponse.json({ message: 'Missing required fields (name, categoryId, proficiency)' }, { status: 400 });
     }
 
-    const newSlug = generateSlug(`${name}-${category}`);
+    // Verify category exists
+    const category = await db.skillCategory.findUnique({ where: { id: categoryId } });
+    if (!category) {
+      return NextResponse.json({ message: 'Category not found' }, { status: 404 });
+    }
+
+    const newSlug = generateSlug(name);
     if (newSlug !== slug) {
       const existingSkillWithNewSlug = await db.skill.findUnique({ where: { slug: newSlug } });
       if (existingSkillWithNewSlug) {
-        return NextResponse.json({ message: 'Skill with this new name and category already exists' }, { status: 409 });
+        return NextResponse.json({ message: 'Skill with this new name already exists' }, { status: 409 });
       }
     }
 
@@ -41,9 +50,13 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
       data: {
         name,
         slug: newSlug,
-        category,
-        proficiency,
+        categoryId,
+        proficiency: Number(proficiency),
+        order: order !== undefined ? order : undefined,
       },
+      include: {
+        category: true,
+      }
     });
 
     return NextResponse.json(updatedSkill);

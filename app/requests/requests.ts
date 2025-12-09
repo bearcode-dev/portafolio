@@ -1,5 +1,5 @@
 import { fetchJSON } from "../../lib/request-util";
-import { AboutType, BlogType, ExperienceType, HomeDataType, ProjectType, ResourceCategoryType, ResourceType, SocialLinkType } from "../components/types/types";
+import { AboutType, BlogType, ExperienceType, HomeDataType, ProjectType, ResourceCategoryType, ResourceType, SkillCategoryType, SocialLinkType } from "../components/types/types";
 
 
 
@@ -95,6 +95,16 @@ export const getResourceCategoriesV2 = async (): Promise<ResourceCategoryType[] 
         return data ?? [];
     } catch (error) {
         console.warn('Error fetching resource categories, returning empty array:', error);
+        return [];
+    }
+}
+
+export const getSkillCategoriesV2 = async (): Promise<SkillCategoryType[] | []> => {
+    try {
+        const data = await fetchJSON<SkillCategoryType[]>(`/api/skill-categories`);
+        return data ?? [];
+    } catch (error) {
+        console.warn('Error fetching skill categories, returning empty array:', error);
         return [];
     }
 }

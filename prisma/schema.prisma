@@ -124,19 +124,25 @@ model Resource {
 
 model SkillCategory {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  image       String // URL or path to the image
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        String?  // Emoji or icon identifier
+  color       String?  // Tailwind gradient classes (e.g., "from-blue-400 to-blue-600")
+  order       Int      @default(0)
   skills      Skill[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Skill {
-  id         String        @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  category   SkillCategory @relation(fields: [categoryId], references: [id])
-  categoryId String        @db.ObjectId
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String        @unique
+  proficiency Int           // 0-100 percentage
+  categoryId  String        @db.ObjectId
+  category    SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  order       Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }

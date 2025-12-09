@@ -58,11 +58,27 @@ export type ResourceCategoryType = {
     updatedAt: Date;
 };
 
+export type SkillCategoryType = {
+    id: string;
+    name: string;
+    slug: string;
+    description?: string;
+    icon?: string;
+    color?: string;
+    order: number;
+    skills?: SkillType[];
+    createdAt: Date;
+    updatedAt: Date;
+};
+
 export type SkillType = {
     id: string;
     name: string;
-    category: string;
-    proficiency: string;
+    slug: string;
+    proficiency: number;
+    categoryId: string;
+    category?: SkillCategoryType;
+    order: number;
     createdAt: Date;
     updatedAt: Date;
 };

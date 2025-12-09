@@ -132,7 +132,6 @@ const ExperienceForm = forwardRef<
               <CustomDatePicker
                 value={field.value ?? null}
                 onChange={(date) => field.onChange(date)}
-                label="Start Date"
               />
               <FormMessage />
             </FormItem>
@@ -143,7 +142,6 @@ const ExperienceForm = forwardRef<
           name="endDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>End Date (Optional)</FormLabel>
               <CustomDatePicker
                 value={field.value ?? null}
                 onChange={(date) => field.onChange(date)}

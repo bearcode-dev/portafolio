@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { User, Save, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   Card,
   CardContent,
@@ -17,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import ImageUpload from "@/app/components/ui/image-upload";
 
 // Validation schema
 const profileSchema = z.object({
@@ -48,9 +50,13 @@ const ProfilePage = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
   });
+
+  const userImageValue = watch('userImage');
 
   // Load profile data into form when fetched
   useEffect(() => {
@@ -78,10 +84,14 @@ const ProfilePage = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-details'] });
-      alert('Profile updated successfully!');
+      toast.success('Profile updated successfully!', {
+        description: 'Your changes have been saved.',
+      });
     },
     onError: (error) => {
-      alert(`Error: ${error.message}`);
+      toast.error('Failed to update profile', {
+        description: error.message,
+      });
     },
   });
 
@@ -180,34 +190,22 @@ const ProfilePage = () => {
           <CardHeader>
             <CardTitle>Media & Files</CardTitle>
             <CardDescription>
-              Profile image and CV file URLs (must be hosted externally)
+              Upload your profile image and provide your CV file URL
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* User Image */}
             <div className="space-y-2">
               <Label htmlFor="userImage">
-                Profile Image URL
+                Profile Image
                 <Badge variant="secondary" className="ml-2">Required</Badge>
               </Label>
-              <Input
-                id="userImage"
-                type="url"
-                placeholder="https://example.com/image.jpg"
-                {...register('userImage')}
-                className={errors.userImage ? 'border-red-500' : ''}
+              <ImageUpload
+                value={userImageValue}
+                onChange={(url) => setValue('userImage', url, { shouldValidate: true })}
               />
               {errors.userImage && (
                 <p className="text-sm text-red-500">{errors.userImage.message}</p>
-              )}
-              {profile?.userImage && (
-                <div className="mt-2">
-                  <img
-                    src={profile.userImage}
-                    alt="Profile preview"
-                    className="w-32 h-32 rounded-lg object-cover border-2 border-gray-200 dark:border-gray-700"
-                  />
-                </div>
               )}
             </div>
 

@@ -3,24 +3,25 @@
 import React from 'react'
 import { motion } from 'framer-motion';
 import { useLanguage } from '../providers/LanguageProvider';
+import { SkillCategoryType } from './types/types';
 
-type SkillBarsProps = {}
+type SkillBarsProps = {
+    skillCategories: SkillCategoryType[]
+}
 
-const SkillBars: React.FC<SkillBarsProps> = () => {
+const SkillBars: React.FC<SkillBarsProps> = ({ skillCategories }) => {
     const { t } = useLanguage();
-    
-    const skills = [
-        { name: 'Spring Boot', level: 90, color: 'from-green-400 to-green-600' },
-        { name: 'NestJs', level: 75, color: 'from-pink-400 to-pink-600' },
-        { name: 'Django', level: 70, color: 'from-emerald-400 to-emerald-600' },
-        { name: '.NET', level: 65, color: 'from-purple-400 to-purple-600' },
-        { name: 'ExpressJS', level: 65, color: 'from-lime-400 to-lime-600' },
-        { name: 'Docker', level: 60, color: 'from-blue-400 to-blue-600' },
-        { name: 'Kubernetes', level: 65, color: 'from-indigo-400 to-indigo-600' },
-        { name: 'Next.js', level: 70, color: 'from-gray-600 to-gray-800' },
-        { name: 'Angular', level: 60, color: 'from-red-400 to-red-600' },
-        { name: 'React', level: 70, color: 'from-cyan-400 to-cyan-600' }
-    ];
+
+    // Flatten all skills from all categories and sort by proficiency
+    const allSkills = skillCategories
+        .flatMap(category =>
+            (category.skills || []).map(skill => ({
+                name: skill.name,
+                level: skill.proficiency,
+                color: category.color || 'from-gray-400 to-gray-600'
+            }))
+        )
+        .sort((a, b) => b.level - a.level); // Sort by proficiency descending
 
     return (
         <div className='w-full space-y-6'>
@@ -28,8 +29,13 @@ const SkillBars: React.FC<SkillBarsProps> = () => {
                 {t.about.skills}
             </h2>
             
-            <div className="space-y-4">
-                {skills.map((skill, index) => (
+            {allSkills.length === 0 ? (
+                <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
+                    No skills added yet. Add skills from the admin panel.
+                </p>
+            ) : (
+                <div className="space-y-4">
+                    {allSkills.map((skill, index) => (
                     <motion.div
                         key={index}
                         initial={{ opacity: 0, x: -20 }}
@@ -61,8 +67,9 @@ const SkillBars: React.FC<SkillBarsProps> = () => {
                             </motion.div>
                         </div>
                     </motion.div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

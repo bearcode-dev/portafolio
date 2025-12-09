@@ -10,7 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 type CustomDatePickerProps = {
     value: Date | null;
     onChange: (date: Date | null) => void;
-    label: string;
+    label?: string; // Make label optional
     error?: { message: string };
 };
 

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { AboutType } from './types/types';
+import { AboutType, SkillCategoryType } from './types/types';
 import Skillbar from './Skillbar';
 import { Mail, MapPin, Briefcase, Calendar, Code2 } from 'lucide-react';
 import { useLanguage } from '../providers/LanguageProvider';
@@ -8,9 +8,10 @@ import { motion } from 'framer-motion';
 
 interface ContentType {
     paragraphs: AboutType[]
+    skillCategories: SkillCategoryType[]
 }
 
-const AboutBody = ({ paragraphs }: ContentType) => {
+const AboutBody = ({ paragraphs, skillCategories }: ContentType) => {
     const { t } = useLanguage();
 
     const fadeInUp = {
@@ -98,7 +99,7 @@ const AboutBody = ({ paragraphs }: ContentType) => {
                     className="lg:col-span-1"
                 >
                     <div className="sticky top-24 p-8 rounded-3xl border shadow-lg backdrop-blur-xl bg-white/70 dark:bg-white/5 border-gray-200/50 dark:border-white/10">
-                        <Skillbar />
+                        <Skillbar skillCategories={skillCategories} />
                     </div>
                 </motion.div>
             </div>

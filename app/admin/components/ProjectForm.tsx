@@ -17,6 +17,7 @@ import { z } from "zod";
 import { Textarea } from "../../../@/components/ui/textarea";
 import CustomDatePicker from "../../../app/components/dashboard/DatePicker";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ImageUpload from "@/app/components/ui/image-upload";
 
 type ProjectFormProps = {
   initialData?: Partial<ProjectFormData>;
@@ -131,9 +132,13 @@ const ProjectForm = forwardRef<
           name="coverImage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Cover Image URL</FormLabel>
+              <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <Input placeholder="https://example.com/image.jpg" {...field} />
+                <ImageUpload
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="mt-2"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
