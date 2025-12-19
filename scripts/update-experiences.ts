@@ -14,7 +14,9 @@ import * as path from 'path';
 const prisma = new PrismaClient();
 
 async function main() {
-  const markdownPath = path.join(__dirname, '../../porfolio-data.md');
+  // const markdownPath = path.join(__dirname, '../../porfolio-data.md');
+  const markdownPath = path.resolve(process.cwd(), 'porfolio-data.md');
+  console.log(`Reading markdown from: ${markdownPath}`);
   const markdownContent = fs.readFileSync(markdownPath, 'utf-8');
 
   const experiences: any[] = [];
@@ -45,7 +47,7 @@ async function main() {
         location = lines[3].trim();
         descriptionLines = lines.slice(4).map(line => line.trim()).filter(line => line.length > 0);
       }
-      
+
       const parseDate = (dateString: string): Date => {
         if (dateString.toLowerCase() === 'presente') {
           return new Date(); // Fecha actual para 'Presente'
@@ -84,32 +86,47 @@ async function main() {
       experiences.push({
         name,
         title,
-        start: startDate,
-        end: endDate,
+        startDate,
+        endDate,
         location,
         descriptionLines,
       });
     }
   }
 
+  const generateSlug = (text: string) => {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  };
+
   for (const exp of experiences) {
-            // Crear nueva experiencia
-            const newExperience = await prisma.experience.create({
-              data: {
-                name: exp.name,
-                title: exp.title,
-                start: exp.start,
-                end: exp.end,
-                location: exp.location,
-                inputs: {
-                  create: exp.descriptionLines.map(content => ({
-                    content
-                  })),
-                },
-              },
-            });
-            console.log(`Nueva experiencia creada: ${newExperience.name} - ${newExperience.title}`);
-          }
+    // Crear nueva experiencia
+    const slug = generateSlug(`${exp.title}-${exp.name}`);
+    const newExperience = await prisma.experience.upsert({
+      where: { slug },
+      update: {
+        name: exp.name,
+        title: exp.title,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        location: exp.location,
+      },
+      create: {
+        name: exp.name,
+        title: exp.title,
+        slug,
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        location: exp.location,
+        technologies: [],
+        inputs: {
+          create: exp.descriptionLines.map((content: string) => ({
+            content
+          })),
+        },
+      },
+    });
+    console.log(`Nueva experiencia creada: ${newExperience.name} - ${newExperience.title}`);
+  }
 }
 
 main()

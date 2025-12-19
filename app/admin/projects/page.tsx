@@ -24,9 +24,10 @@ const ProjectsAdmin = () => {
   const stats = useMemo(() => {
     if (!projects) return { total: 0, categories: 0, technologies: 0 };
 
-    const categories = new Set(projects.map(p => p.category)).size;
+    // Calculate stats
+    const categories = new Set(projects.map(p => p.category).filter(Boolean)).size;
     const technologies = new Set(
-      projects.flatMap(p => Array.isArray(p.technologies) ? p.technologies : [])
+      projects.flatMap(p => p.technologies?.length ? p.technologies : (p.tools ? p.tools.map(t => t.name) : []))
     ).size;
 
     return {
@@ -79,7 +80,14 @@ const ProjectsAdmin = () => {
           columnDefs={[
             { headerName: 'Title', field: 'title' },
             { headerName: 'Category', field: 'category' },
-            { headerName: 'Technologies', field: 'technologies', cellRenderer: ({ value }: { value: string[] }) => (value && Array.isArray(value) ? value.join(', ') : '') },
+            { 
+              headerName: 'Technologies', 
+              field: 'technologies', 
+              cellRenderer: ({ data }: { data: ProjectType }) => {
+                 const techs = data.technologies?.length ? data.technologies : data.tools?.map(t => t.name);
+                 return techs ? techs.join(', ') : '';
+              } 
+            },
           ]}
           apiEndpoint={`${process.env.NEXT_PUBLIC_API_URL}/api/projects`}
           FormComponent={ProjectForm}

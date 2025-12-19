@@ -35,11 +35,20 @@ interface ExperienceInput {
 
 
 export interface ProjectType {
+    id: string
     tools: { name: string }[]
+    technologies: string[]
     title: string
-    about: string
+    about?: string
+    description?: string
     cover: string
+    coverImage?: string
     link: string
+    liveUrl?: string
+    githubUrl?: string
+    category?: string
+    slug: string
+    publishedAt?: string
 }
 
 export interface BlogType {

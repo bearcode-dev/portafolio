@@ -16,10 +16,14 @@ export async function seedDatabase() {
         data: {
 
             title: "Ecommerce con Administración",
+            slug: "ecommerce-con-administracion",
             about: "Administrador de Ecommerce en Angular",
-            cover: "media/cover/angular_yecgyn.png",
+            description: "Administrador de Ecommerce en Angular",
+            cover: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80",
+            coverImage: "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80",
             link: "https://github.com/Spiritbe4r/ngAdmin",
             toolIDs: toolIds,
+            technologies: []
 
 
         }

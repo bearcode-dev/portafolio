@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                     </div>
                         
                         {/* Desktop Navigation */}
-                        <div className="hidden gap-1 items-center px-2 md:flex">
+                        <div className="hidden gap-2 items-center px-4 md:flex flex-1 justify-center">
                             {menuItems.map((item, index) => (
                                 <MenuItem 
                                     key={index}
@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ active, isDark }) => {
                         </div>
 
                         {/* Right Section: Theme + Language + Mobile Menu */}
-                        <div className="flex gap-2 items-center pr-2 pl-2 border-l border-gray-300/20 dark:border-gray-700/50">
+                        <div className="flex gap-1.5 items-center pr-2 pl-2 border-l border-gray-300/20 dark:border-gray-700/50">
                             <div className="hidden md:block">
                                 <ThemeToggle />
                             </div>
@@ -192,7 +192,7 @@ export const MenuItem = ({ name, linkTo, active, isMobile }: { name: string, lin
         <Link 
                 href={linkTo} 
                 className={`
-                    relative px-4 py-2 mr-10 text-base font-medium transition-all duration-200 rounded-full
+                    relative px-4 py-2 text-sm md:text-base font-medium transition-all duration-200 rounded-full
                 ${isActive 
                     ? 'bg-gradient-to-r shadow-md text-foreground dark:text-white from-brand-green to-brand-medium' 
                     : 'text-foreground dark:text-gray-300 hover:text-foreground dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10'

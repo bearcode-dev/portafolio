@@ -40,16 +40,20 @@ model AboutContent {
 }
 
 model Experience {
-  id        String            @id @default(auto()) @map("_id") @db.ObjectId
-  image     String? // URL or path to the image
-  name      String
-  slug      String @unique
-  title     String
-  start     DateTime
-  end       DateTime
-  inputs    ExperienceInput[]
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  image        String? // URL or path to the image
+  company      String?
+  name         String? // potentially legacy
+  slug         String            @unique
+  title        String
+  description  String?
+  location     String?
+  startDate    DateTime
+  endDate      DateTime?
+  technologies String[]
+  inputs       ExperienceInput[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
 }
 
 model ExperienceInput {
@@ -62,15 +66,24 @@ model ExperienceInput {
 }
 
 model Project {
-  id        String        @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  about     String
-  toolIDs   String[]      @db.ObjectId
-  tools     ProjectTool[] @relation(fields: [toolIDs], references: [id])
-  cover     String // URL or path to the image
-  link      String
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  slug         String        @unique
+  description  String
+  content      String?
+  about        String? // legacy?
+  toolIDs      String[]      @db.ObjectId
+  tools        ProjectTool[] @relation(fields: [toolIDs], references: [id])
+  coverImage   String // URL or path to the image
+  cover        String? // legacy map?
+  githubUrl    String?
+  liveUrl      String?
+  link         String? // legacy
+  category     String?
+  technologies String[]
+  publishedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model ProjectTool {

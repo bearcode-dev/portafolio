@@ -5,7 +5,7 @@ import { generateSlug } from "@/lib/slug-util";
 export async function GET(request: NextRequest) {
   try {
     const experiences = await db.experience.findMany({
-      orderBy: { start: "desc" },
+      orderBy: { startDate: "desc" },
     });
     return NextResponse.json(experiences);
   } catch (error) {

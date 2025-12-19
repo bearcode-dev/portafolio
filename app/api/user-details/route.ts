@@ -12,7 +12,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
         return NextResponse.json({
             error,
             message: 'Failed to fetch content'
-        });
+        }, { status: 500 });
 
     }
 }
