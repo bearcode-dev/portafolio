@@ -116,7 +116,7 @@ const ProfilePage = () => {
           Profile Settings
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Manage your portfolio's main information and welcome message
+          Manage your portfolio&apos;s main information and welcome message
         </p>
       </div>
 
